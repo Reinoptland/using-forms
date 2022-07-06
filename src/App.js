@@ -1,22 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+const correctEmail = "alina@alina.com";
+const correctPassword = "abcd1234";
 
 function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  console.log("STATE:", email, password);
+  function submitForm(event) {
+    console.log("FORM SUBMIT:", event);
+    event.preventDefault();
+    if (email === correctEmail && password === correctPassword) {
+      console.log("Welcome Alina!");
+      setEmail("");
+      setPassword("");
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <form onSubmit={submitForm}>
+          <label htmlFor="email">
+            Email
+            <input
+              name="email"
+              type="text"
+              value={email}
+              onChange={(event) =>
+                // console.log("EVENT Target", event.target.value)
+                setEmail(event.target.value)
+              }
+            />
+            <p>{email.includes("@") ? "" : "Hey, remember the @"}</p>
+          </label>
+          <label htmlFor="password">
+            Password
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
+          <input type="submit" />
+        </form>
       </header>
     </div>
   );
